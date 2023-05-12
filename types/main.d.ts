@@ -1,16 +1,4 @@
 declare namespace ParseURLToQueryMiddleware {
-	/**
-	 * @author imjano
-	 * @param req express.Request. Containing information about the incoming HTTP request.
-	 * @param res express.Response. The response object, used to send a response to the client
-	 * @param next express.NextFunction. The next function to be called in the middleware chain.
-	 * @returns void
-	 * @description The function extracts the protocol and 'host' attribute from the req parameter to construct the URL.
-	 * It then creates a query object based on the URL, which will be used for querying a database using mongoose.
-	 * The constructed query object is then inserted into the req parameter for further processing in subsequent middleware or route handlers.
-	 */
-	function parse(req: any, res: any, next: any)
-
 	interface IParseURLToQueryMiddlewareConfig {
 		defaultFields: {
 			/**
@@ -46,6 +34,24 @@ declare namespace ParseURLToQueryMiddleware {
 			buildSortQuery(searchParams: URLSearchParams)
 		}
 	}
+	/**
+	 * @author imjano
+	 * @param req express.Request. Containing information about the incoming HTTP request.
+	 * @param res express.Response. The response object, used to send a response to the client
+	 * @param next express.NextFunction. The next function to be called in the middleware chain.
+	 * @returns void
+	 * @description The function extracts the protocol and 'host' attribute from the req parameter to construct the URL.
+	 * It then creates a query object based on the URL, which will be used for querying a database using mongoose.
+	 * The constructed query object is then inserted into the req parameter for further processing in subsequent middleware or route handlers.
+	 */
+	function parse(req: any, res: any, next: any)
+
+	/**
+	 *
+	 * @param conf IParseURLToQueryMiddlewareConfig
+	 * @description customize the parser functions to suit your project
+	 */
+	function buildParser(conf: IParseURLToQueryMiddlewareConfig)
 }
 
 export default ParseURLToQueryMiddleware
