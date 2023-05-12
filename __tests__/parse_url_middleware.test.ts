@@ -1,4 +1,4 @@
-import ParseURLToQueryMiddleware from '../src/main'
+import GetQueryFromURL from '../src/main'
 import compareObjects from 'compare_objects_imjano'
 import { TRequest } from '../src/types/types'
 
@@ -23,7 +23,7 @@ const next = () => null
 describe('parse', () => {
 	it('should parse the url incoming into a query object to be used for mongoose queries', () => {
 		const request = buildRequest(`/example_query?from=${from}`)
-		ParseURLToQueryMiddleware.parse(request, {}, next)
+		GetQueryFromURL.parse(request, {}, next)
 		expect(
 			compareObjects(request.urlSearchParams?.query.createdAt.$gte, from)
 		).toBe(true)
@@ -33,7 +33,7 @@ describe('parse', () => {
 describe('parse', () => {
 	it('should parse the url incoming into a query object to be used for mongoose queries', () => {
 		const request = buildRequest(`/example_query?to=${to}`)
-		ParseURLToQueryMiddleware.parse(request, {}, next)
+		GetQueryFromURL.parse(request, {}, next)
 		expect(
 			compareObjects(request.urlSearchParams?.query.createdAt.$lte, to)
 		).toBe(true)
@@ -43,7 +43,7 @@ describe('parse', () => {
 describe('parse', () => {
 	it('should parse the url incoming into a query object to be used for mongoose queries', () => {
 		const request = buildRequest(`/example_query?to=${to}&from=${from}`)
-		ParseURLToQueryMiddleware.parse(request, {}, next)
+		GetQueryFromURL.parse(request, {}, next)
 		expect(
 			compareObjects(request.urlSearchParams?.query.createdAt.$lte, to) &&
 				compareObjects(

@@ -12,8 +12,8 @@ export type TRequestURLSearchParams = {
 	sort: any
 }
 
-export interface IParseURLToQueryMiddlewareConfig {
-	defaultFields: {
+export interface IGetQueryFromURLConfig {
+	defaultFields?: {
 		/**
 		 * @description lets you specify the name of the timestamp createdAt field in your database
 		 * @default createdAt
@@ -30,7 +30,7 @@ export interface IParseURLToQueryMiddlewareConfig {
 		 */
 		id?: string
 	}
-	parserFunctions: {
+	parserFunctions?: {
 		/**
 		 * @description allows you to customize the method to parse the query limit
 		 */
@@ -41,7 +41,7 @@ export interface IParseURLToQueryMiddlewareConfig {
 		 */
 		buildQuery?: (
 			searchParams: URLSearchParams,
-			config?: IParseURLToQueryMiddlewareConfig
+			config?: IGetQueryFromURLMiddlewareConfig
 		) => Record<string, any> | null
 
 		/**
@@ -49,7 +49,7 @@ export interface IParseURLToQueryMiddlewareConfig {
 		 */
 		buildSortQuery?: (
 			searchParams: URLSearchParams,
-			config?: IParseURLToQueryMiddlewareConfig
+			config?: IGetQueryFromURLMiddlewareConfig
 		) => Record<string, any> | null
 	}
 }

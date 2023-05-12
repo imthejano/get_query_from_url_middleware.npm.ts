@@ -13,12 +13,24 @@ npm install parse_url_to_query_middleware_imjano
 ## Usage
 
 ```javascript
-const ParseUrlToQueryMiddleware = require('parse_url_to_query_middleware_imjano')
+const GetQueryFromUrl = require('get_query_from_url_middleware_imjano')
 
-app.use(ParseUrlToQueryMiddleware.parse)
+app.use(GetQueryFromUrl.parse)
 
+/**
+let's suppose that the path of the request ends as follows
+'example?from=2023-05-10'&param=name&equalTo=alex
+ */
 app.get('/example', async (req, res, next) => {
-	const { query, sort, limit } = req
+	const { query, sort, limit } = req.urlSearchParams
+	/**
+	 * req.urlSearchParams has been injected with query objects
+	 * {
+		query: { abs: { '$gte': '2023-05-10' }, name: 'alex' },
+		sort: { created_at: -1 },
+		limit: 100
+	}
+	 */
 	let users = await UserModel.find(query).sort(sort).limit(limit)
 	res.json(users).status(200)
 })

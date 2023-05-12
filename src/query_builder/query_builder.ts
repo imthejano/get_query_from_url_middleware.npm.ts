@@ -1,4 +1,4 @@
-import { IParseURLToQueryMiddlewareConfig } from '../types/types'
+import { IGetQueryFromURLConfig } from '../types/types'
 
 const stringToNumber = (str: string, def: number): number => {
 	try {
@@ -77,7 +77,7 @@ const QueryBuilder = {
 
 	buildQuery(
 		params: URLSearchParams,
-		config?: IParseURLToQueryMiddlewareConfig
+		config?: IGetQueryFromURLConfig
 	): Record<string, any> {
 		const createdAtField =
 			config?.defaultFields?.timestampCreatedAt ?? 'createdAt'
@@ -106,13 +106,13 @@ const QueryBuilder = {
 		if (params.get('equalTo'))
 			query[params.get('param')!] = getParsedValue(params.get('equalTo')!)
 		if (params.get('id'))
-			query[idField!] = getParsedValue(params.get('equalTo')!)
+			query[idField!] = getParsedValue(params.get('id')!)
 		return query
 	},
 
 	buildSortQuery(
 		params: URLSearchParams,
-		config?: IParseURLToQueryMiddlewareConfig
+		config?: IGetQueryFromURLConfig
 	): Record<string, any> {
 		const createdAtField =
 			config?.defaultFields?.timestampCreatedAt ?? 'createdAt'

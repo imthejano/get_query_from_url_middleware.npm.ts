@@ -1,6 +1,6 @@
 declare namespace ParseURLToQueryMiddleware {
 	interface IParseURLToQueryMiddlewareConfig {
-		defaultFields: {
+		defaultFields?: {
 			/**
 			 * @description lets you specify the name of the timestamp createdAt field in your database
 			 * @default createdAt
@@ -17,21 +17,21 @@ declare namespace ParseURLToQueryMiddleware {
 			 */
 			id?: string
 		}
-		parserFunctions: {
+		parserFunctions?: {
 			/**
 			 * @description allows you to customize the method to parse the query limit
 			 */
-			buildLimitQuery(searchParams: URLSearchParams)
+			buildLimitQuery?(searchParams: URLSearchParams): number
 
 			/**
 			 * @description allows you to customize the method to parse the query object
 			 */
-			buildQuery(searchParams: URLSearchParams)
+			buildQuery?(searchParams: URLSearchParams): any
 
 			/**
 			 * @description allows you to customize the method to parse the query sort
 			 */
-			buildSortQuery(searchParams: URLSearchParams)
+			buildSortQuery?(searchParams: URLSearchParams): any
 		}
 	}
 	/**
@@ -44,14 +44,16 @@ declare namespace ParseURLToQueryMiddleware {
 	 * It then creates a query object based on the URL, which will be used for querying a database using mongoose.
 	 * The constructed query object is then inserted into the req parameter for further processing in subsequent middleware or route handlers.
 	 */
-	function parse(req: any, res: any, next: any)
+	function parse(req: any, res: any, next: any): void
 
 	/**
 	 *
 	 * @param conf IParseURLToQueryMiddlewareConfig
 	 * @description customize the parser functions to suit your project
 	 */
-	function buildParser(conf: IParseURLToQueryMiddlewareConfig)
+	function buildParser(
+		conf: IParseURLToQueryMiddlewareConfig
+	): (req: any, res: any, next: any) => void
 }
 
 export default ParseURLToQueryMiddleware

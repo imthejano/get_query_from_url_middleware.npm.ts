@@ -1,7 +1,7 @@
 {
-	"name": "parse_url_to_query_middleware_imjano",
-	"version": "1.0.0",
-	"main": "index.js",
+	"name": "get_query_from_url_middleware_imjano",
+	"version": "1.0.1",
+	"main": "dist/main.js",
 	"scripts": {
 		"build": "tsc",
 		"test": "jest"
@@ -19,5 +19,9 @@
 	},
 	"dependencies": {
 		"compare_objects_imjano": "^1.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/imthejano/parse_url_to_query_middleware.npm.ts.git"
 	}
 }

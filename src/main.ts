@@ -1,7 +1,7 @@
 import QueryBuilder from './query_builder/query_builder'
-import { IParseURLToQueryMiddlewareConfig, TRequest } from './types/types'
+import { IGetQueryFromURLConfig, TRequest } from './types/types'
 
-const ParseURLToQueryMiddleware = {
+const GetQueryFromURL = {
 	/**
 	 * @author imjano
 	 * @param req express.Request. Containing information about the incoming HTTP request.
@@ -33,7 +33,7 @@ const ParseURLToQueryMiddleware = {
 		}
 	},
 
-	buildParser(conf: IParseURLToQueryMiddlewareConfig) {
+	buildParser(conf: IGetQueryFromURLConfig) {
 		const buildQueryFunction =
 			conf.parserFunctions?.buildQuery ?? QueryBuilder.buildQuery
 		const buildLimitQueryFunction =
@@ -63,4 +63,4 @@ const ParseURLToQueryMiddleware = {
 		}
 	},
 }
-export default ParseURLToQueryMiddleware
+export default GetQueryFromURL
