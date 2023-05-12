@@ -1,6 +1,6 @@
 {
 	"name": "get_query_from_url_middleware_imjano",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"main": "dist/main.js",
 	"scripts": {
 		"build": "tsc",
@@ -15,11 +15,10 @@
 		"@types/jest": "^29.5.1",
 		"jest": "^29.5.0",
 		"ts-jest": "^29.1.0",
-		"typescript": "^5.0.4"
-	},
-	"dependencies": {
+		"typescript": "^5.0.4",
 		"compare_objects_imjano": "^1.0.0"
 	},
+	"dependencies": {},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/imthejano/get_query_from_url_middleware.npm.ts.git"
