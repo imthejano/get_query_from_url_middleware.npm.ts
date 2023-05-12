@@ -26,8 +26,8 @@ app.get('/example', async (req, res, next) => {
 	/**
 	 * req.urlSearchParams has been injected with query objects
 	 * {
-		query: { abs: { '$gte': '2023-05-10' }, name: 'alex' },
-		sort: { created_at: -1 },
+		query: { createdAt: { '$gte': '2023-05-10' }, name: 'alex' },
+		sort: { createdAt: -1 },
 		limit: 100
 	}
 	 */
