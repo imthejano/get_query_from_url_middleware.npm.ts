@@ -7,7 +7,7 @@ The constructed query object is then inserted into the req parameter for further
 ## Installation
 
 ```bash
-npm install parse_url_to_query_middleware_imjano
+npm install get_query_from_url_imjano
 ```
 
 ## Usage
