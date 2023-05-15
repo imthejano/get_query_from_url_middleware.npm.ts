@@ -1,4 +1,4 @@
-import GetQueryFromURL from '../src/main'
+import GetQueryFromURLMiddleware from '../src/main'
 import compareObjects from 'compare_objects_imjano'
 import { TRequest } from '../src/types/types'
 
@@ -20,36 +20,41 @@ const buildRequest = (path: string): TRequest => {
 const response = {}
 const next = () => null
 
-describe('parse', () => {
+const getQueryFromURL = GetQueryFromURLMiddleware.configure({
+	defaultFields: {
+		id: '_id',
+		timestampCreatedAt: 'createdAt',
+		timestampUpdatedAt: 'updatedAt',
+	},
+})
+
+describe('we have a incoming request, so we can handle it to get query parameters', () => {
 	it('should parse the url incoming into a query object to be used for mongoose queries', () => {
 		const request = buildRequest(`/example_query?from=${from}`)
-		GetQueryFromURL.parse(request, {}, next)
+		getQueryFromURL(request, {}, next)
 		expect(
-			compareObjects(request.urlSearchParams?.query.createdAt.$gte, from)
+			compareObjects(request.queryFromURL?.query.createdAt.$gte, from)
 		).toBe(true)
 	})
 })
 
-describe('parse', () => {
+describe('we have a incoming request, so we can handle it to get query parameters', () => {
 	it('should parse the url incoming into a query object to be used for mongoose queries', () => {
 		const request = buildRequest(`/example_query?to=${to}`)
-		GetQueryFromURL.parse(request, {}, next)
+		getQueryFromURL(request, {}, next)
 		expect(
-			compareObjects(request.urlSearchParams?.query.createdAt.$lte, to)
+			compareObjects(request.queryFromURL?.query.createdAt.$lte, to)
 		).toBe(true)
 	})
 })
 
-describe('parse', () => {
+describe('we have a incoming request, so we can handle it to get query parameters', () => {
 	it('should parse the url incoming into a query object to be used for mongoose queries', () => {
 		const request = buildRequest(`/example_query?to=${to}&from=${from}`)
-		GetQueryFromURL.parse(request, {}, next)
+		getQueryFromURL(request, {}, next)
 		expect(
-			compareObjects(request.urlSearchParams?.query.createdAt.$lte, to) &&
-				compareObjects(
-					request.urlSearchParams?.query.createdAt.$gte,
-					from
-				)
+			compareObjects(request.queryFromURL?.query.createdAt.$lte, to) &&
+				compareObjects(request.queryFromURL?.query.createdAt.$gte, from)
 		).toBe(true)
 	})
 })

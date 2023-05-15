@@ -1,64 +1,5 @@
-import { IGetQueryFromURLConfig } from '../types/types'
-
-const stringToNumber = (str: string, def: number): number => {
-	try {
-		let num = parseInt(str)
-		if (!isNaN(num)) return num
-		num = parseFloat(str)
-		if (!isNaN(num)) return num
-		return def
-	} catch (error) {
-		return def
-	}
-}
-
-const getParsedValue = (str: string): any => {
-	if (
-		(str.includes('int(') ||
-			str.includes('float(') ||
-			str.includes('bool(') ||
-			str.includes('str(')) &&
-		str.endsWith(')')
-	) {
-		try {
-			return parseValue(str)
-		} catch (error) {
-			return str
-		}
-	}
-	return str
-}
-
-/**
- *
- * @author chatgpt
- * method created by chatgpt
- */
-const parseValue = (input: string): any => {
-	const [type, valueString] = input.slice(0, -1).split('(')
-	const value = getValueOfType(valueString, type)
-	return value
-}
-
-/**
- *
- * @author chatgpt
- * method created by chatgpt
- */
-const getValueOfType = (valueString: string, type: string): any => {
-	switch (type) {
-		case 'int':
-			return parseInt(valueString)
-		case 'float':
-			return parseFloat(valueString)
-		case 'bool':
-			return valueString === 'true'
-		case 'str':
-			return valueString
-		default:
-			throw new Error(`type is not valid: ${type}`)
-	}
-}
+import { IGetQueryFromURLConfigDefaultFields } from '../types/types'
+import utils from '../utils/utils'
 
 const QueryBuilder = {
 	buildLimitQuery(
@@ -68,7 +9,7 @@ const QueryBuilder = {
 		defLimit: number = 100
 	): number {
 		const limit = Math.floor(
-			stringToNumber(params.get('maxDocs') ?? '', defLimit)
+			utils.stringToNumber(params.get('maxDocs') ?? '', defLimit)
 		)
 		if (limit > maxLimit) return maxLimit
 		if (limit < minLimit) return minLimit
@@ -77,13 +18,11 @@ const QueryBuilder = {
 
 	buildQuery(
 		params: URLSearchParams,
-		config?: IGetQueryFromURLConfig
+		defaultFields?: IGetQueryFromURLConfigDefaultFields
 	): Record<string, any> {
-		const createdAtField =
-			config?.defaultFields?.timestampCreatedAt ?? 'createdAt'
-		const updatedAtField =
-			config?.defaultFields?.timestampUpdatedAt ?? 'updatedAt'
-		const idField = config?.defaultFields?.id ?? '_id'
+		const createdAtField = defaultFields?.timestampCreatedAt ?? 'createdAt'
+		const updatedAtField = defaultFields?.timestampUpdatedAt ?? 'updatedAt'
+		const idField = defaultFields?.id ?? '_id'
 		let query: Record<string, any> = {}
 		if (params.get('from') || params.get('to')) query[createdAtField] = {}
 		if (params.get('from')) query[createdAtField].$gte = params.get('from')
@@ -96,26 +35,27 @@ const QueryBuilder = {
 			query[updatedAtField].$lte = params.get('updatedTo')
 		if (params.get('param')) query[params.get('param')!] = {}
 		if (params.get('moreThan'))
-			query[params.get('param')!].$gte = getParsedValue(
+			query[params.get('param')!].$gte = utils.getParsedValue(
 				params.get('moreThan')!
 			)
 		if (params.get('lessThan'))
-			query[params.get('param')!].$lte = getParsedValue(
+			query[params.get('param')!].$lte = utils.getParsedValue(
 				params.get('lessThan')!
 			)
 		if (params.get('equalTo'))
-			query[params.get('param')!] = getParsedValue(params.get('equalTo')!)
+			query[params.get('param')!] = utils.getParsedValue(
+				params.get('equalTo')!
+			)
 		if (params.get('id'))
-			query[idField!] = getParsedValue(params.get('id')!)
+			query[idField!] = utils.getParsedValue(params.get('id')!)
 		return query
 	},
 
 	buildSortQuery(
 		params: URLSearchParams,
-		config?: IGetQueryFromURLConfig
+		defaultFields?: IGetQueryFromURLConfigDefaultFields
 	): Record<string, any> {
-		const createdAtField =
-			config?.defaultFields?.timestampCreatedAt ?? 'createdAt'
+		const createdAtField = defaultFields?.timestampCreatedAt ?? 'createdAt'
 		let query: Record<string, any> = {}
 		let sort = -1
 		switch (params.get('order') ?? -1) {

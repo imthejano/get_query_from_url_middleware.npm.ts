@@ -12,25 +12,46 @@ npm install get_query_from_url_imjano
 
 ## Usage
 
+import the middleware get_query_from_url_imjano
+
 ```javascript
-const GetQueryFromUrl = require('get_query_from_url_middleware_imjano')
+const GetQueryFromURLMiddleware = require('get_query_from_url_imjano')
+```
 
-app.use(GetQueryFromUrl.parse)
+Now you can configure acording to your project and insert it before your routes
 
-/**
+```javascript
+const getQueryFromURL = GetQueryFromURLMiddleware.configure({
+	defaultFields: {
+		id: '_id',
+		timestampCreatedAt: 'createdAt',
+		timestampUpdatedAt: 'updatedAt',
+	},
+})
+app.use(getQueryFromURL)
+```
+
 let's suppose that the path of the request ends as follows
+
+```bash
 'example?from=2023-05-10'&param=name&equalTo=alex
- */
+```
+
+req.queryFromURL has been injected with query objects
+
+```javascript
+{
+	query: { createdAt: { '$gte': '2023-05-10' }, name: 'alex' },
+	sort: { createdAt: -1 },
+	limit: 100
+}
+```
+
+Now you can execute the query
+
+```javascript
 app.get('/example', async (req, res, next) => {
-	const { query, sort, limit } = req.urlSearchParams
-	/**
-	 * req.urlSearchParams has been injected with query objects
-	 * {
-		query: { createdAt: { '$gte': '2023-05-10' }, name: 'alex' },
-		sort: { createdAt: -1 },
-		limit: 100
-	}
-	 */
+	const { query, sort, limit } = req.queryFromURL
 	let users = await UserModel.find(query).sort(sort).limit(limit)
 	res.json(users).status(200)
 })
