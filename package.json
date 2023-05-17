@@ -1,13 +1,22 @@
 {
-	"name": "get_query_from_url_middleware_imjano",
-	"version": "1.0.4",
-	"main": "dist/main.js",
+	"name": "imjano_get_query_from_url_mw",
+	"version": "1.0.0",
+	"main": "module/index.js",
 	"scripts": {
 		"build": "tsc",
 		"test": "jest"
 	},
-	"typings": "dist/main.d.ts",
-	"keywords": [],
+	"types": "module/index.d.ts",
+	"keywords": [
+		"middleware",
+		"url",
+		"querystring",
+		"query string",
+		"query",
+		"mongoose",
+		"express middleware",
+		"imjano"
+	],
 	"author": "Alejandro Garcia <imjano@outlook.com>",
 	"license": "ISC",
 	"description": "",

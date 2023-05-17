@@ -1,7 +1,7 @@
 # Get query from URL
 
-The function extracts the protocol and 'host' attribute from the req parameter to construct the URL.
-It then creates a query object based on the URL, which will be used for querying a database using mongoose.
+The function extracts construct a URL object from the request parameters.
+It then creates a query object based on the URL query string, which will be used for querying a database using mongoose.
 The constructed query object is then inserted into the req parameter for further processing in subsequent middleware or route handlers.
 
 ## Installation
