@@ -1,5 +1,5 @@
 import GetQueryFromURLMiddleware from '../src/index'
-import compareObjects from 'compare_objects_imjano'
+import compareObjects from 'imjano_compare_2_objects'
 import { TRequest } from '../src/types/types'
 
 /**
