@@ -18,7 +18,7 @@ import the middleware @imjano/get_query_from_url_mw
 const GetQueryFromURLMiddleware = require('@imjano/get_query_from_url_mw')
 ```
 
-Now you can configure acording to your project and insert it before your routes
+Now you can configure according to your project and insert it before your routes
 
 ```javascript
 const getQueryFromURL = GetQueryFromURLMiddleware.configure({
