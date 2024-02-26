@@ -7,15 +7,15 @@ The constructed query object is then inserted into the req parameter for further
 ## Installation
 
 ```bash
-npm install get_query_from_url_imjano
+npm install @imjano/get_query_from_url_mw
 ```
 
 ## Usage
 
-import the middleware get_query_from_url_imjano
+import the middleware @imjano/get_query_from_url_mw
 
 ```javascript
-const GetQueryFromURLMiddleware = require('get_query_from_url_imjano')
+const GetQueryFromURLMiddleware = require('@imjano/get_query_from_url_mw')
 ```
 
 Now you can configure acording to your project and insert it before your routes

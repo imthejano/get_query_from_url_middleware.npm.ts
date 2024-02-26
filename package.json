@@ -1,5 +1,5 @@
 {
-	"name": "imjano_get_query_from_url_mw",
+	"name": "@imjano/get_query_from_url_mw",
 	"version": "1.0.1",
 	"main": "module/index.js",
 	"scripts": {
